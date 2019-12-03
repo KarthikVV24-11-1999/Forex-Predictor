@@ -57,7 +57,7 @@ X_test = sc.transform(X_test)
 # Defining classifer, here we have used RBF kernel. We could change the values of C and the kernel function and see the results
 #classifier = svm.SVC(C=15,kernel='rbf',gamma = "scale")
 #classifier = svm.SVC(C=2,kernel='poly', degree=2, gamma = "scale")
-classifier = svm.SVC(C=4,kernel='linear', gamma = "scale")
+classifier = svm.SVC(C=10,kernel='sigmoid', gamma = "scale")
 # Encoding labels (this is required as the code was cribbing otherwise. There seems to be string data somewhere)
 lab_enc = LabelEncoder()
 y_train = y_train.ravel()
