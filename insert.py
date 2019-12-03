@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Dec  1 19:08:20 2019
-
-@author: saianuroopkesanapalli
-"""
-
 # import numpy, pandas and time
 import numpy as np
 import pandas as pd
@@ -21,6 +13,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn import svm
+from sklearn.linear_model import LinearRegression
 
 # Read the data in the CSV file using pandas
 # Change the path to the .csv file accordingly!
@@ -55,22 +48,24 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
 # Defining classifer, here we have used RBF kernel. We could change the values of C and the kernel function and see the results
-#classifier = svm.SVC(C=15,kernel='rbf',gamma = "scale")
-#classifier = svm.SVC(C=2,kernel='poly', degree=2, gamma = "scale")
-classifier = svm.SVC(C=4,kernel='sigmoid', gamma = "scaled")
+#classifier = svm.SVC(C=4,kernel='sigmoid',gamma = "auto")
+classifier = LinearRegression()
 # Encoding labels (this is required as the code was cribbing otherwise. There seems to be string data somewhere)
 lab_enc = LabelEncoder()
 y_train = y_train.ravel()
 y_train = lab_enc.fit_transform(y_train)
-
+print("TRAINING START")
 # Fitting the curve (learning)
 classifier.fit(X_train,y_train)
 # Predicting the target (testing)
+print("TESTING START")
 predicted = classifier.predict(X_test)
 predicted = -pd.DataFrame(lab_enc.fit_transform(predicted))
 # Scaling the predicted target
 mmsc = MinMaxScaler(feature_range=(-1, 1))
 predicted = mmsc.fit_transform(predicted)
 predicted = mmsc.transform(predicted)
+output=np.array(predicted)
+pd.DataFrame(output).to_csv("file.csv")
+print("Done")
 # Check the values of predicted which are the predicted target values. We cannot validate the predicted target values.
-test_id = pd.DataFrame(testframe['id'])
