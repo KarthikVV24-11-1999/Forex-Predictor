@@ -23,7 +23,7 @@ from sklearn import svm
 
 # Read the data in the CSV file using pandas
 # Change the path to the .csv file accordingly!
-dataframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/5th Semester/BitGrit Challenge/competition_data/train.csv')
+dataframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/BitGrit Challenge/competition_data/train.csv')
 # Filling NaN with mean
 dataframe .isnull().any().sum()
 dataframe.fillna(dataframe.mean(),inplace=True)
@@ -49,23 +49,25 @@ X_train,X_test,y_train,y_test = train_test_split(features_array,target_array,tes
 sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
-# Defining classifer, here we have used RBF kernel. We could change the values of C and the kernel function and see the results
-classifier = svm.SVC(C=1,kernel='rbf',gamma = "scale")
-# Encoding labels (this is required as the code was cribbing otherwise. There seems to be string data somewhere)
-lab_enc = LabelEncoder()
-y_train = y_train.ravel()
-y_train = lab_enc.fit_transform(y_train)
-# Fitting the curve (learning)
-classifier.fit(X_train,y_train)
-# Predicting the target (testing)
-predicted = classifier.predict(X_test)
-predicted = -pd.DataFrame(lab_enc.fit_transform(predicted))
-# Scaling the predicted target
-mmsc = MinMaxScaler(feature_range=(-1, 1))
-predicted = mmsc.fit_transform(predicted)
-predicted = mmsc.transform(predicted)
-# Calculating Mean Sqyared Error (this is our evaluation criterion)
-score = mean_squared_error(y_test,predicted)
-print("MSE:" + str(score))
 
-# Compare y-test and predicted to check the predicted target values by yourself
+for k in range(1, 2):
+    # Defining classifer, here we have used RBF kernel. We could change the values of C and the kernel function and see the results
+    classifier = svm.SVC(C=k,kernel='rbf',gamma = "scale")
+    # Encoding labels (this is required as the code was cribbing otherwise. There seems to be string data somewhere)
+    lab_enc = LabelEncoder()
+    y_train = y_train.ravel()
+    y_train = lab_enc.fit_transform(y_train)
+    # Fitting the curve (learning)
+    classifier.fit(X_train,y_train)
+    # Predicting the target (testing)
+    predicted = classifier.predict(X_test)
+    predicted = -pd.DataFrame(lab_enc.fit_transform(predicted))
+    # Scaling the predicted target
+    mmsc = MinMaxScaler(feature_range=(-1, 1))
+    predicted = mmsc.fit_transform(predicted)
+    predicted = mmsc.transform(predicted)
+    # Calculating Mean Sqyared Error (this is our evaluation criterion)
+    score = mean_squared_error(y_test,predicted)
+    print("MSE:" + str(score))
+    
+    # Compare y-test and predicted to check the predicted target values by yourself

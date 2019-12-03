@@ -24,8 +24,8 @@ from sklearn import svm
 
 # Read the data in the CSV file using pandas
 # Change the path to the .csv file accordingly!
-dataframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/5th Semester/BitGrit Challenge/competition_data/train.csv')
-testframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/5th Semester/BitGrit Challenge/competition_data/test.csv')
+dataframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/BitGrit Challenge/competition_data/train.csv')
+testframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/BitGrit Challenge/competition_data/test.csv')
 # Filling NaN with mean in training dataframe
 dataframe .isnull().any().sum()
 dataframe.fillna(dataframe.mean(),inplace=True)
@@ -55,7 +55,9 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
 # Defining classifer, here we have used RBF kernel. We could change the values of C and the kernel function and see the results
-classifier = svm.SVC(C=1,kernel='rbf',gamma = "scale")
+#classifier = svm.SVC(C=15,kernel='rbf',gamma = "scale")
+#classifier = svm.SVC(C=2,kernel='poly', degree=2, gamma = "scale")
+classifier = svm.SVC(C=4,kernel='linear', gamma = "scale")
 # Encoding labels (this is required as the code was cribbing otherwise. There seems to be string data somewhere)
 lab_enc = LabelEncoder()
 y_train = y_train.ravel()
@@ -71,3 +73,4 @@ mmsc = MinMaxScaler(feature_range=(-1, 1))
 predicted = mmsc.fit_transform(predicted)
 predicted = mmsc.transform(predicted)
 # Check the values of predicted which are the predicted target values. We cannot validate the predicted target values.
+test_id = pd.DataFrame(testframe['id'])
