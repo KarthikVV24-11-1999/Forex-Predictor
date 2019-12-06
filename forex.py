@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sun Dec  1 19:08:20 2019
-
 @author: saianuroopkesanapalli
 """
 
@@ -24,8 +23,8 @@ from sklearn import svm
 
 # Read the data in the CSV file using pandas
 # Change the path to the .csv file accordingly!
-dataframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/BitGrit Challenge/competition_data/train.csv')
-testframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/BitGrit Challenge/competition_data/test.csv')
+dataframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/BitGrit Challenge/forex_predictor/train.csv')
+testframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/BitGrit Challenge/forex_predictor/test.csv')
 # Filling NaN with mean in training dataframe
 dataframe .isnull().any().sum()
 dataframe.fillna(dataframe.mean(),inplace=True)
@@ -57,7 +56,7 @@ X_test = sc.transform(X_test)
 # Defining classifer, here we have used RBF kernel. We could change the values of C and the kernel function and see the results
 #classifier = svm.SVC(C=15,kernel='rbf',gamma = "scale")
 #classifier = svm.SVC(C=2,kernel='poly', degree=2, gamma = "scale")
-classifier = svm.SVC(C=4,kernel='sigmoid', gamma = "scaled")
+classifier = svm.SVC(C=4,kernel='sigmoid', gamma = "scale")
 # Encoding labels (this is required as the code was cribbing otherwise. There seems to be string data somewhere)
 lab_enc = LabelEncoder()
 y_train = y_train.ravel()
