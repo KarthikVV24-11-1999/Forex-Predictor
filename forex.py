@@ -27,10 +27,12 @@ dataframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/BitGrit Challenge/
 testframe = pd.read_csv('/Users/saianuroopkesanapalli/Desktop/BitGrit Challenge/forex_predictor/test.csv')
 # Filling NaN with mean in training dataframe
 dataframe .isnull().any().sum()
-dataframe.fillna(dataframe.mean(),inplace=True)
+#dataframe.fillna(dataframe.mean(),inplace=True)
+dataframe.fillna(0,inplace=True)
 # Filling NaN with mean in testing dataframe
 testframe .isnull().any().sum()
-testframe.fillna(testframe.mean(),inplace=True)
+#testframe.fillna(testframe.mean(),inplace=True)
+testframe.fillna(0,inplace=True)
 # Creating a dataframe to store target of training dataframe
 target = pd.DataFrame(dataframe['target'])
 # Creating a dataframe to store id of training dataframe
